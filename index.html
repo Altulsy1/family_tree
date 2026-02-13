@@ -320,5 +320,28 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
     <!-- ملفات اللعبة -->
     <script src="game-modern.js"></script>
+    <script>
+// تهيئة اللعبة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    // تأكد من أن اللعبة تهيأت بشكل صحيح
+    setTimeout(function() {
+        if (!window.game) {
+            console.error('اللعبة لم تهيأ بشكل صحيح');
+            window.game = new ModernGame();
+        }
+    }, 100);
+});
+
+// دالة للتعامل مع معلمات URL (مثل رمز الغرفة)
+window.addEventListener('load', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const joinCode = urlParams.get('join');
+    if (joinCode && window.game) {
+        setTimeout(() => {
+            window.game.joinRoom(joinCode.toUpperCase());
+        }, 500);
+    }
+});
+</script>
 </body>
 </html>
